@@ -79,3 +79,6 @@ $('#clearEnquiry').onclick=()=>{if(confirm('Clear your enquiry list?')){enquiry.
 $('#copyEnquiry').onclick=async()=>{try{await navigator.clipboard.writeText(enquiryText());alert('Enquiry copied.')}catch(e){alert('Copy not available on this device.')}};
 $('#emailEnquiry').onclick=()=>{if(!enquiry.size)return alert('Add a product first.');const subject=encodeURIComponent('Product enquiry from Elevore360D Product Offers');const body=encodeURIComponent(enquiryText());location.href=`mailto:?subject=${subject}&body=${body}`};
 updateEnquiryCount();
+
+// Customer-to-customer QR sharing (no changes to product management)
+document.addEventListener('DOMContentLoaded',()=>{const m=document.getElementById('shareAppModal');const close=()=>{m.hidden=true};document.getElementById('shareAppBtn').addEventListener('click',()=>{m.hidden=false});document.getElementById('closeShareApp').addEventListener('click',close);document.getElementById('backToOffers').addEventListener('click',close);m.addEventListener('click',e=>{if(e.target===m)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!m.hidden)close()})});

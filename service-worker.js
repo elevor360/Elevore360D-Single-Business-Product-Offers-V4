@@ -1,5 +1,5 @@
-const CACHE='elevore360d-single-business-products-v4';
-const CORE=['./','index.html','style.css','app.js','manifest.json','elevore360d-logo.jpg','icon-192.png','icon-512.png','install.js'];
+const CACHE='elevore360d-single-business-products-v4-share';
+const CORE=['./','index.html','style.css','app.js','manifest.json','elevore360d-logo.jpg','icon-192.png','icon-512.png','install.js','share-qr.png'];
 
 self.addEventListener('install', event => {
   self.skipWaiting();

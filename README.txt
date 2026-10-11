@@ -1,7 +1,7 @@
-ELEVORE360D SINGLE BUSINESS PRODUCT OFFERS V4
+ELEVORE360D PRODUCT OFFERS V4 - SHARE EDITION
 
-NEW: My Enquiry List. Customers can add/remove products, view discounted prices, copy an enquiry list or prepare an email to the business. The email opens without a recipient; customers select the business email address. No checkout, reservations or automatic orders.
+Based on your working V4. Adds a SHARE THIS APP button and your supplied QR code.
 
-All V3 features remain: sorting, favourites, stock labels, percentage discounts, search, categories, and product detail pages. Compatible with the SAME businesses.json export from the existing Owner/Business Manager.
-
-INSTALL: Upload program files to the SAME product app GitHub Pages repository. KEEP YOUR LIVE businesses.json AND REAL businessNNN.jpg IMAGES. Do not upload the sample businesses.json or sample business001.jpg over your real content. Customers may need to close and reopen the installed app after deployment.
+Upload program files and share-qr.png to the EXISTING Product Offers GitHub repository.
+IMPORTANT: Keep your real businesses.json and business001.jpg, business002.jpg etc. Do not overwrite your live catalogue with sample data.
+No changes to the Owner/Business Manager or any other apps.
