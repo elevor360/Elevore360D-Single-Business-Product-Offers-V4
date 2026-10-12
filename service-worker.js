@@ -1,4 +1,4 @@
-const CACHE='elevore360d-single-business-products-v4-share';
+const CACHE='elevore360d-single-business-products-v4-2-public';
 const CORE=['./','index.html','style.css','app.js','manifest.json','elevore360d-logo.jpg','icon-192.png','icon-512.png','install.js','share-qr.png'];
 
 self.addEventListener('install', event => {
@@ -17,11 +17,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
+  const isSettingsData = url.pathname.endsWith('/business-settings.json');
   const isBusinessData = url.pathname.endsWith('/businesses.json') || url.pathname.endsWith('businesses.json');
   const isBusinessImage = /business\d{3}\.(jpg|jpeg|png|webp)$/i.test(url.pathname);
 
   // Business data and advertising pictures: always try the live GitHub Pages copy first.
-  if (isBusinessData || isBusinessImage) {
+  if (isSettingsData || isBusinessData || isBusinessImage) {
     event.respondWith(
       fetch(event.request, {cache:'no-store'})
         .then(response => {

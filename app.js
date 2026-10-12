@@ -77,8 +77,33 @@ $('#openEnquiry').onclick=()=>{$('#directory').hidden=true;$('#detail').hidden=t
 $('#enquiryBack').onclick=back;
 $('#clearEnquiry').onclick=()=>{if(confirm('Clear your enquiry list?')){enquiry.clear();localStorage.setItem(ENQUIRY_KEY,'[]');render();renderEnquiry();updateEnquiryCount()}};
 $('#copyEnquiry').onclick=async()=>{try{await navigator.clipboard.writeText(enquiryText());alert('Enquiry copied.')}catch(e){alert('Copy not available on this device.')}};
-$('#emailEnquiry').onclick=()=>{if(!enquiry.size)return alert('Add a product first.');const subject=encodeURIComponent('Product enquiry from Elevore360D Product Offers');const body=encodeURIComponent(enquiryText());location.href=`mailto:?subject=${subject}&body=${body}`};
+$('#emailEnquiry').onclick=()=>{if(!enquiry.size)return alert('Add a product first.');const subject=encodeURIComponent('Product enquiry from Elevore360D Product Offers');const body=encodeURIComponent(enquiryText());location.href=`mailto:${encodeURIComponent(publicBusiness.email||'')}?subject=${subject}&body=${body}`};
 updateEnquiryCount();
 
 // Customer-to-customer QR sharing (no changes to product management)
 document.addEventListener('DOMContentLoaded',()=>{const m=document.getElementById('shareAppModal');const close=()=>{m.hidden=true};document.getElementById('shareAppBtn').addEventListener('click',()=>{m.hidden=false});document.getElementById('closeShareApp').addEventListener('click',close);document.getElementById('backToOffers').addEventListener('click',close);m.addEventListener('click',e=>{if(e.target===m)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!m.hidden)close()})});
+
+// Public read-only business settings, published by the owner from V5.
+let publicBusiness={name:'Product Offers',email:'',phone:'',address:'',logo:'elevore360d-logo.jpg'};
+function safeText(v){return String(v||'').trim()}
+function renderPublicBusiness(){
+ const heading=document.getElementById('businessHeading');heading.textContent=safeText(publicBusiness.name)||'Product Offers';
+ const logo=document.getElementById('businessLogo');const candidate=safeText(publicBusiness.logo);
+ // Restrict logo to a filename in this repository; no arbitrary URLs or paths.
+ if(/^[a-zA-Z0-9_-]+\.(png|jpe?g|webp)$/i.test(candidate)){logo.src=candidate+'?updated='+Date.now()}else logo.src='elevore360d-logo.jpg';
+ logo.onerror=()=>{logo.onerror=null;logo.src='elevore360d-logo.jpg'};
+ const c=document.getElementById('businessContact');c.replaceChildren();
+ for(const [label,value] of [['Telephone',publicBusiness.phone],['Address',publicBusiness.address],['Email',publicBusiness.email]]){
+  if(!safeText(value))continue;const p=document.createElement('p');const b=document.createElement('strong');b.textContent=label+': ';p.appendChild(b);
+  if(label==='Telephone'||label==='Email'){const a=document.createElement('a');a.href=(label==='Telephone'?'tel:':'mailto:')+encodeURIComponent(safeText(value));a.textContent=safeText(value);p.appendChild(a)}else p.appendChild(document.createTextNode(safeText(value)));c.appendChild(p)
+ }c.hidden=!c.childNodes.length;
+}
+async function refreshPublicBusiness(){
+ try{const response=await fetch('business-settings.json?refresh='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('No settings file');
+ const data=await response.json();if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Invalid settings');
+ publicBusiness={...publicBusiness,...data};try{localStorage.setItem('e360-public-business-cache',JSON.stringify(publicBusiness))}catch{}
+ }catch(e){try{const cached=JSON.parse(localStorage.getItem('e360-public-business-cache')||'null');if(cached)publicBusiness={...publicBusiness,...cached}}catch{}}
+ renderPublicBusiness();
+}
+refreshPublicBusiness();
+window.addEventListener('pageshow',()=>refreshPublicBusiness());
