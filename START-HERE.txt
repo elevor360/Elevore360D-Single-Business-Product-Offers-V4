@@ -1,0 +1,7 @@
+Elevore360D Local Deals Customer V2.6 — COMPLETE SAMPLE PACKAGE
+
+Includes the five demonstration businesses and their photos from V2.5, plus businesses.json, business-settings.json and advert-settings.json.
+
+IMPORTANT: Demo data is not your real business data. If updating your live GitHub Pages app, do not overwrite your real businesses.json, businessNNN.jpg, business-settings.json or advert-settings.json. Only use sample files for a new test installation or if you intentionally want to replace your live data.
+
+Use the separate All-in-One Manager to import/edit and export the three JSON files; upload those exports to your GitHub Pages customer repository. Media images/videos are uploaded separately.

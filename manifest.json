@@ -1,9 +1,9 @@
 {
-  "name": "Elevore360D Product Offers V4",
-  "short_name": "Product Offers",
+  "name": "Elevore360D Local Deals",
+  "short_name": "Local Deals",
   "description": "Local business discounts and offers.",
-  "id": "./single-business-products-v1",
-  "start_url": "./?app=products-v1",
+  "id": "./",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#111111",
